@@ -1,0 +1,50 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Customer Registration{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h3>Customer Registration</h3>
+   <hr>
+
+   <form action="" method="post" novalidate class="shadow p-5">
+      {% if messages %}
+  {% for message in messages %}
+  <div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} alert-dismissible fade show" role="alert">
+     <strong>{{message}}</strong>
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+  {% endfor %}
+  {% endif %}
+
+  <script>
+    // Function to fade out the alert after 3 seconds
+    setTimeout(function() {
+      $('.alert').fadeOut('slow');
+    }, 3000);
+  </script>
+
+      {% csrf_token %}
+   {% for fm in form %}
+    <div class="form-group mb-3">
+     {{fm.label_tag}}
+     {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+    </div>
+    {% endfor %}
+    <input type="Submit" class="btn btn-danger"></input>
+    <br>
+    <div class="text-center text-primary fw-bold"><small>Existing User ? <a href="{% url 'login' %}"
+       class="text-danger">Login Now</a> </small></div>
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p class="alert alert-danger my-3">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+   </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

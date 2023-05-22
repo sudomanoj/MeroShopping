@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-3">
+   <div class="list-group">
+<a href="{% url 'mobile' %}" class="list-group-item list-group-item-action" aria-current='true'>All Mobile</a>
+
+<a href="{% url 'mobiledata' 'Apple'%}" class="list-group-item list-group-item-action" aria-current='true'>Iphone</a>
+
+<a href="{% url 'mobiledata' 'Samsung'%}" class="list-group-item list-group-item-action" aria-current='true'>Samsung</a>
+
+<a href="{% url 'mobiledata' 'Oneplus'%}" class="list-group-item list-group-item-action" aria-current='true'>Oneplus</a>
+
+<a href="{% url 'mobiledata' 'Redmi'%}" class="list-group-item list-group-item-action" aria-current='true'>Redmi</a>
+
+<a href="{% url 'mobiledata' 'budget'%}" class="list-group-item list-group-item-action" aria-current='true'>Budget Phone</a>
+
+<a href="{% url 'mobiledata' 'midrange'%}" class="list-group-item list-group-item-action" aria-current='true'>Midrange Phone</a>
+
+<a href="{% url 'mobiledata' 'flexive'%}" class="list-group-item list-group-item-action" aria-current='true'>Flexive Phone</a>
+
+   </div>  
+  </div>
+  <div class="col-sm-8 offset-sm-1">
+    <div class="row">
+{% for mobile in mobiles %}
+        <div class="col-sm-4 text-center mb-4">
+            <a href="{% url 'product-detail' mobile.id%}" class="btn">
+                <div class="item">
+                    <img src="{{mobile.product_image.url}}" alt="" height='200' width='200' class=''>
+                    <div class="fw-bold">{{mobile.title}}</div>
+                    <div class="fw-bold">Rs. {{mobile.discounted_price}}</div>
+                    <small class="fw-light text-decoration-line-through">{{mobile.selling_price}}</small>
+                </div>
+            </a>
+        </div>
+{% endfor %}
+
+    </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

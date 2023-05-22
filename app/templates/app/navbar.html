@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+  <div class="container">
+    <a class="navbar-brand" href="/">MeroShopping</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="electronicsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Electronics
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="electronicsDropdown">
+            <li><a class="dropdown-item" href="{% url 'mobile' %}">Mobile</a></li>
+            <li><a class="dropdown-item" href="{% url 'laptop' %}">Laptop</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="fashionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Fashion
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="fashionDropdown">
+            <li><a class="dropdown-item" href="{% url 'topwear' %}">Top Wear</a></li>
+            <li><a class="dropdown-item" href="{% url 'bottomwear' %}">Bottom Wear</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+         <a class="nav-link dropdown-toggle text-white" href="#" id="fashionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Shoes
+         </a>
+         <ul class="dropdown-menu" aria-labelledby="fashionDropdown">
+           <li><a class="dropdown-item" href="{% url 'topwear' %}">Sneakers</a></li>
+           <li><a class="dropdown-item" href="{% url 'bottomwear' %}">Formal Shoes</a></li>
+         </ul>
+       </li>
+        
+      </ul>
+      
+      <div>
+       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+         {% if user.is_authenticated %}
+        <li class="nav-item dropdown mr-1">
+           <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+             {{user.username|capfirst}}
+           </a>
+           <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+             <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+             <li><a class="dropdown-item" href="{% url 'orders' %}">Orders</a></li>
+             <li><a class="dropdown-item" href="{% url 'changepassword' %}">Change Password</a></li>
+             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+           </ul>
+         </li>
+         <li class="nav-item mx-1">
+          <a href="{% url 'showcart' %}" class="nav-link text-white"><span class="badge bg-danger">{{count}}</span> Cart </a>
+         </li>
+         {% else %}
+         <li class="nav-item mr-1">
+          <a href="{% url 'login' %}" class="nav-link text-white">Login</a>
+         </li>
+         <li class="nav-item mx-2">
+          <a href="{% url 'customerregistration' %}" class="nav-link text-white">Registration</a>
+         </li>
+         {% endif %}
+       </ul>
+      </div>
+      <form class="d-flex" method='post' action='/search/'>
+       {% csrf_token %}
+       <input class="form-control me-2" type="search" name='search' placeholder="Search" aria-label="Search" maxlength="25">
+       <input type="submit" class='btn btn-danger' value="Search">
+     </form>
+    </div>
+  </div>
+ </nav>
